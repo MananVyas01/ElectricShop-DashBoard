@@ -46,6 +46,7 @@ venv.bak/
 
 # Database
 *.db
+!electric_shop.db
 *.sqlite
 *.sqlite3
 
