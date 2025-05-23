@@ -201,7 +201,6 @@ if page == "Dashboard":
         df = pd.DataFrame(products, columns=['Product Code', 'Product Name', 'Category', 'Price', 'Stock', 'Last Updated'])
         
         # Add date range filter
-        st.markdown('<div class="card">', unsafe_allow_html=True)
         col1, col2 = st.columns(2)
         with col1:
             date_range = st.date_input(
@@ -215,7 +214,6 @@ if page == "Dashboard":
                 options=df['Category'].unique(),
                 default=df['Category'].unique()
             )
-        st.markdown('</div>', unsafe_allow_html=True)
         
         # Filter data based on selections
         filtered_df = df[df['Category'].isin(category_filter)]
@@ -223,26 +221,18 @@ if page == "Dashboard":
         # Top metrics in a row with improved styling
         col1, col2, col3, col4 = st.columns(4)
         with col1:
-            st.markdown('<div class="metric-container">', unsafe_allow_html=True)
             total_products = len(filtered_df)
             in_stock = len(filtered_df[filtered_df['Stock'] > 0])
             st.metric("Total Products", total_products, f"{in_stock} in stock")
-            st.markdown('</div>', unsafe_allow_html=True)
         with col2:
-            st.markdown('<div class="metric-container">', unsafe_allow_html=True)
             total_value = filtered_df['Price'].mul(filtered_df['Stock']).sum()
             st.metric("Total Value", f"${total_value:,.2f}")
-            st.markdown('</div>', unsafe_allow_html=True)
         with col3:
-            st.markdown('<div class="metric-container">', unsafe_allow_html=True)
             low_stock = len(filtered_df[filtered_df['Stock'] < 10])
             st.metric("Low Stock Items", low_stock, "Need attention" if low_stock > 0 else "All good")
-            st.markdown('</div>', unsafe_allow_html=True)
         with col4:
-            st.markdown('<div class="metric-container">', unsafe_allow_html=True)
             categories = filtered_df['Category'].nunique()
             st.metric("Categories", categories)
-            st.markdown('</div>', unsafe_allow_html=True)
         
         # Charts in a grid layout with improved interactivity
         st.markdown("### 📈 Analytics Overview")
@@ -331,7 +321,6 @@ if page == "Dashboard":
         st.markdown("### ⚠️ Low Stock Alerts")
         low_stock = filtered_df[filtered_df['Stock'] < 10]
         if not low_stock.empty:
-            st.markdown('<div class="card">', unsafe_allow_html=True)
             # Add color coding for stock levels
             def color_stock(val):
                 color = 'red' if val < 5 else 'orange'
@@ -341,7 +330,6 @@ if page == "Dashboard":
                 color_stock, subset=['Stock']
             )
             st.dataframe(styled_df, use_container_width=True)
-            st.markdown('</div>', unsafe_allow_html=True)
         else:
             st.success("No low stock items!")
     else:
@@ -351,7 +339,6 @@ if page == "Dashboard":
 elif page == "Add Product":
     st.title("➕ Add New Product")
     
-    st.markdown('<div class="card">', unsafe_allow_html=True)
     with st.form("add_product_form"):
         col1, col2 = st.columns(2)
         with col1:
@@ -367,13 +354,10 @@ elif page == "Add Product":
             if product_code and product_name and price >= 0 and stock_quantity >= 0:
                 if db.add_product(product_code, product_name, category, price, stock_quantity):
                     st.success(f"Product '{product_name}' added successfully!")
-                    # Clear form fields (requires re-running app, not directly supported in Streamlit forms)
-                    # A workaround would be to use st.session_state, but let\'s keep it simple for now.
                 else:
                     st.error(f"Product code '{product_code}' already exists! Please use a unique code.")
             else:
                 st.error("Please fill all required fields correctly! Price and Stock must be non-negative.")
-    st.markdown('</div>', unsafe_allow_html=True)
 
 # Manage Stock Page
 elif page == "Manage Stock":
@@ -390,7 +374,6 @@ elif page == "Manage Stock":
             col1, col2 = st.columns([1, 2])
             
             with col1:
-                st.markdown('<div class="card">', unsafe_allow_html=True)
                 with st.form("update_stock_form"):
                     product_codes = df['Product Code'].tolist()
                     display_codes = ["Select a product"] + product_codes
@@ -434,11 +417,8 @@ elif page == "Manage Stock":
                         st.info("Please select a product first.")
                         if st.form_submit_button("Update Stock"):
                             st.warning("Please select a product first.")
-                
-                st.markdown('</div>', unsafe_allow_html=True)
             
             with col2:
-                st.markdown('<div class="card">', unsafe_allow_html=True)
                 st.subheader("Current Stock Levels")
                 updated_products = db.get_all_products()
                 if updated_products:
@@ -447,10 +427,8 @@ elif page == "Manage Stock":
                                 use_container_width=True)
                 else:
                     st.info("No products available.")
-                st.markdown('</div>', unsafe_allow_html=True)
         
         with tab2:
-            st.markdown('<div class="card">', unsafe_allow_html=True)
             st.subheader("📊 Sales History")
             
             # Get sales history
@@ -482,7 +460,6 @@ elif page == "Manage Stock":
                     st.dataframe(summary_df, use_container_width=True)
             else:
                 st.info("No sales history available yet.")
-            st.markdown('</div>', unsafe_allow_html=True)
     else:
         st.info("No products in inventory yet. Add products using the 'Add Product' tab before managing stock.")
 
@@ -494,7 +471,6 @@ elif page == "Inventory":
     if products:
         df = pd.DataFrame(products, columns=['Product Code', 'Product Name', 'Category', 'Price', 'Stock', 'Last Updated'])
         
-        st.markdown('<div class="card">', unsafe_allow_html=True)
         # Search and filter
         col1, col2 = st.columns(2)
         with col1:
@@ -512,10 +488,8 @@ elif page == "Inventory":
         
         # Display inventory with enhanced styling
         st.dataframe(filtered_df, use_container_width=True)
-        st.markdown('</div>', unsafe_allow_html=True)
         
         # Delete product section
-        st.markdown('<div class="card">', unsafe_allow_html=True)
         st.subheader("🗑️ Delete Product")
         
         product_codes = df['Product Code'].tolist()
@@ -525,12 +499,9 @@ elif page == "Inventory":
                 if st.form_submit_button("Delete Product"):
                     if db.delete_product(product_to_delete):
                         st.success(f"Product '{product_to_delete}' deleted successfully!")
-                        # st.experimental_rerun() # Rerun to update the table immediately
                     else:
                         st.error(f"Failed to delete product '{product_to_delete}'!")
         else:
             st.info("No products available to delete.")
-            
-        st.markdown('</div>', unsafe_allow_html=True)
     else:
         st.info("No products in inventory yet.") 
