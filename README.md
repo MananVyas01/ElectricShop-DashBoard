@@ -3,13 +3,7 @@
 </p>
 <p align="left"><h1 align="left">ELECTRICSHOP-DASHBOARD</h1></p>
 <p align="left">
-	<em><code>❯ REPLACE-ME</code></em>
-</p>
-<p align="left">
-	<img src="https://img.shields.io/github/license/MananVyas01/ElectricShop-DashBoard?style=for-the-badge&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
-	<img src="https://img.shields.io/github/last-commit/MananVyas01/ElectricShop-DashBoard?style=for-the-badge&logo=git&logoColor=white&color=0080ff" alt="last-commit">
-	<img src="https://img.shields.io/github/languages/top/MananVyas01/ElectricShop-DashBoard?style=for-the-badge&color=0080ff" alt="repo-top-language">
-	<img src="https://img.shields.io/github/languages/count/MananVyas01/ElectricShop-DashBoard?style=for-the-badge&color=0080ff" alt="repo-language-count">
+	
 </p>
 <p align="left">Built with the tools and technologies:</p>
 <p align="left">
