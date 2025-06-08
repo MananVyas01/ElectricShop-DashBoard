@@ -1,5 +1,4 @@
 <p align="left">
-    <img src="https://img.icons8.com/external-tal-revivo-duo-tal-revivo/100/external-markdown-a-lightweight-markup-language-with-plain-text-formatting-syntax-logo-duo-tal-revivo.png" align="left" width="30%">
 </p>
 <p align="left"><h1 align="left">ELECTRICSHOP-DASHBOARD</h1></p>
 <p align="left">
