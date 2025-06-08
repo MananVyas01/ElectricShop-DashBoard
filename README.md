@@ -33,17 +33,6 @@
 </details>
 <hr>
 
-## 📍 Overview
-
-<code>❯ REPLACE-ME</code>
-
----
-
-## 👾 Features
-
-<code>❯ REPLACE-ME</code>
-
----
 
 ## 📁 Project Structure
 
